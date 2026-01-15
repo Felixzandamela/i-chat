@@ -88,21 +88,52 @@ const Main = ({props, onChanges}) =>{
   }, []);
   
   const handleScrollTo =()=>{window.scrollTo(0,0)}
- 
-  useEffect(() => {
-    if (isAuth) {
-      dbUsers.child(isAuth.uid).child("online").set("online").catch((error) => { console.log(error) });
-    }// Atualiza o status para 'online' quando o usuário está autenticado
+  
+  async function getUser(_id) {
+    let url = `http://localhost:8089/me?_id=${_id}`;
+    try {
+      let response = await fetch(url);
+      if (!response.ok) {
+        throw new Error('Erro ao buscar usuário');
+      }
+      const userDatas = await response.json();
+      return userDatas;
+    } catch (error) {
+      console.error(error);
+      return null;
+    }
+  }
+  useEffect(async() => {
+    if (datas) {
+      const [_id] = datas.email.split("@");
+      const userDatasToUpdate = await getUser(_id);
+      if(userDatasToUpdate){
+        dbUsers.child(datas.id).update({
+          name:userDatasToUpdate.name,
+          online: "online"
+        }).then(()=>{
+          if(userDatasToUpdate.src){
+            dbImages.child(datas.id).update({src: userDatasToUpdate.src}).catch((error)=>{
+              console.error("error ao atualiza a img:",error);
+            });
+          }
+        }).catch((error)=>{
+          console.error("error ao atualizar dados:",error);
+        });
+      }else{
+        dbUsers.child(datas.id).child("online").set("online").catch((error) => { console.log(error) });
+      }
+    }// Atualiza o status para 'online' quando o usuário está autenticado e atualizar nome e imagem
     return () => {
       const updateOffline = async () => {
         try {
           const lastSeen = getCurrentTime().fullDate;
-          await dbUsers.child(isAuth.uid).child("online").set(lastSeen);
-        } catch (error) {console.log(error);}
+          await dbUsers.child(datas.id).child("online").set(lastSeen);
+        } catch (error) {console.error(error);}
       };
-      if(isAuth && isAuth.uid !== null){updateOffline();}
+      if(datas && datas.id !== null){updateOffline();}
     }
-  }, [isAuth]); 
+  }, [datas]); 
   
  async function handleAction(){
     const lastSeen = getCurrentTime().fullDate;
@@ -110,7 +141,7 @@ const Main = ({props, onChanges}) =>{
       try{
        const i = await dbUsers.child(isAuth.uid).child("online").set(lastSeen);
         handleSignOut();
-      }catch(error){console.log(error);};
+      }catch(error){console.error(error);};
     }else{handleSignOut();}
   }
   
@@ -142,7 +173,7 @@ const Main = ({props, onChanges}) =>{
       <nav className="m_nav nav a_container flex_b_c">
         <div className="left_items padd10-lr">
           <div className="logo m5-lr">
-            IChat
+            I-Chat
           </div>
         </div>
         <div className="right_items padd10-lr flex_c_c">

@@ -24,7 +24,7 @@ const NotFoundPage = ({language})=>{
         <div className="content_box_404">
           <h3 className="h2">{texts.notFoundTitle[language]}</h3>
           <p>{texts.notFoundtext[language]}</p>
-          <button onClick={()=>navigate("/",{replace:true})} className="button btns main_btns">{texts.goToBack[language]}</button>
+          <button onClick={()=>navigate("/",{replace:true})} className="primary-btn padd8-15 br6-a">{texts.goToBack[language]}</button>
         </div>
       </div>
     </section>        

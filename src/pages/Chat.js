@@ -188,6 +188,7 @@ const Chat = ({language})=>{
     } // set header datas from current sender 
   },[datas,isAuth]);
   //Assim que os dados de chat forem carregados, rola para baixo  
+  
   useEffect(()=>{
     const timeout = setTimeout(()=>{
       if(isMounted.current && chat){
@@ -486,7 +487,8 @@ const Chat = ({language})=>{
                   <Avatar avatar={item.autor} color={color}/>
                 </div>
               </div>
-              ||<div key={idGenerator()} className="messageCard receved flex_s">
+              ||
+              <div key={idGenerator()} className="messageCard receved flex_s">
                 <div className="a_msg_avatar">
                 
               {datas && <Avatar avatar={item.autor} color={datas.chatColor}/>}
@@ -530,7 +532,9 @@ const Chat = ({language})=>{
                 <div key={k} className="a_send_image_wrap">
                   <div className="a_send_image_card">
                     <img className="a_send_image" src={image} alt={`Imagem ${k + 1}`} />
-                    <div onClick={() => deleteImage(k)} className="a_send_image_delete flex_c_c">x</div>
+                    <div onClick={() => deleteImage(k)} className="a_send_image_delete br60 flex_c_c">
+                       <svg  fill="currentColor" opacity="1.0"  baseProfile="full" width="16" height="16" viewBox="0 0 24.00  24.00"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5   6.41 10.59  12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41z"/></svg> 
+                    </div>
                     {k === 0 && values.images.length > maxDisplay && (
                       <div className="hidden-images-warning flex_c_c">
                         {`+${values.images.length - maxDisplay}`}
