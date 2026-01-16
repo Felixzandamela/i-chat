@@ -1,6 +1,6 @@
 import React, {useState,useEffect, useRef} from "react";
 import Cropper from 'cropperjs';
-import "cropper.css";
+
 import {texts} from "../texts/Texts";
 import {MinLoder,Toast,useFileName} from "./Utils";
 
