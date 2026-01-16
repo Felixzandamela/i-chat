@@ -1164,10 +1164,7 @@ background: transparent;
   position: relative;
   padding:20px 25px;
 }
-.input_card button, 
-.input_wrap{
-  height: 48px;
-}
+.input_card button, .input_wrap{height: 48px;}
 .input_wrap,.input_wrap_textarea,
 .min_input_amount{
   position:relative;
@@ -1183,8 +1180,6 @@ background: transparent;
   font-weight: 500;
   font-family:var(--font-family);
 }
-
-
 
 .min_input_amount{
   width: 100px;
