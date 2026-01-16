@@ -11,7 +11,7 @@ import SupportChat from "./pages/Support";
 import Chat from "./pages/Chat";
 
 import "./style.css";
-import "./cropper.css";
+import "./cropper.min.css";
 const App = ()=>{
   const [states, setStates] = useState({
     language: getLanguage(),
