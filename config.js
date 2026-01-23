@@ -1,5 +1,5 @@
 SystemJS.config({
-  baseURL:'./node_modules/',
+  baseURL:'https://felixzandamela.github.io/i-chat/node_modules/',
   defaultExtension:false,
   packages:{
     ".":{
