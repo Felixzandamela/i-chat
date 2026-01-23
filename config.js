@@ -36,6 +36,8 @@ SystemJS.config({
 SystemJS.import('./src/index').then(()=>{
   console.log("Modulo carregado con sucesso");
 }).catch((error)=>{
+  document.getElementById('abc').textContent= error;
+ 
   window.location.reload();
   console.log(error);
   console.error.bind(console);
